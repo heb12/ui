@@ -1,5 +1,6 @@
 # Heb12 UI
 HTML/CSS/JS User Interface for Heb12 apps
+(fastclick is for older devices, and is not required)
 
 ## Requirements
 * Run on old android devices (>android 4.4)
