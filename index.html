@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>UI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+		<style>
+		html, body {
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			font-family: sans-serif;
+			touch-action: manipulation;
+		}
+
+		screen {
+			width: 100%;
+			height: 100%;
+			display: none;
+		}
+
+		#content {width: 100%;}
+		#top {
+			box-shadow: 0px 5px 8px grey;
+			margin-bottom: 10px;
+		}
+
+		#content p {
+			margin: 0;
+			padding: 20px 20px;
+			cursor: pointer;
+		}
+
+		#top input {
+			padding: 10px 10px;
+			margin: auto;
+			display: block;
+
+			border: transparent;
+			outline: none;
+			font-size: 22px;
+			text-align: center;
+			width: 100px;
+		}
+
+		#content p:hover {background: lightgrey;}
+		#top img {padding: 10px 10px; float: left;cursor: pointer;}
+		#top img:active {background: lightgrey;}
+		</style>
+	</head>
+	<body>
+		<span id="nojs">For a JavaScript-less experience, visit ...</span>
+
+		<screen>
+			<div id="top">
+				<img id="settings" src="https://fonts.gstatic.com/s/i/materialicons/settings/v6/24px.svg">
+				<input id="verse" value="Hebrews 12" onkeypress="checkEnter(event, updateContent)">
+			</div>
+			<div id="content">
+
+			</div>
+		</screen>
+	</body>
+
+	<script src="fastclick.min.js"></script>
+	<script>
+	// FastClick (to be with browser only)
+	window.addEventListener('load', function() {
+		new FastClick(document.body);
+	}, false);
+
+	// Store some variables for elements (already declared by dom)
+	var screens = document.getElementsByTagName("screen");
+	var content = document.getElementById("content");
+	var verse = document.getElementById("verse");
+	var requester = new XMLHttpRequest();
+
+	// Current UI bindings for web
+	var bindings = {
+		getVerses: function(reference, callback) {
+			requester.open("GET", "http://api.heb12.com/get/?reference=" + reference, true);
+			requester.onload = function() {
+				var verses = JSON.parse(this.responseText).data.text[0].verses;
+				callback(JSON.parse(this.responseText));
+			};
+
+			requester.send(null);
+		}
+	}
+
+	// Hide No js message
+	document.getElementById("nojs").style.display = "none";
+
+	// Default screen
+	screens[0].style.display = "block";
+
+	// Initial update
+	updateContent("Hebrews 12");
+
+	function updateContent(reference) {
+		content.innerHTML = "";
+
+		bindings.getVerses(reference, function(data) {
+			var verses = data.data.text[0].verses;
+			for (var i = 0; i < verses.length; i++) {
+				var p = document.createElement("p");
+				p.innerHTML += "<b>" + (i + 1) + " </b>" + verses[i];
+				p.onclick = function() {};
+
+				content.appendChild(p);
+			}
+		});
+	}
+
+	function checkEnter(env, code) {
+		if (env.keyCode == 13) {
+			updateContent(verse.value);
+		}
+	}
+	</script>
+</html>
