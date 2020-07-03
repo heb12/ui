@@ -8,3 +8,6 @@ HTML/CSS/JS User Interface for Heb12 apps
 * Clean
 * Minimal Javascript
 * No necessary large frameworks
+
+## Currently Tested
+2010 iPod Touch 4th Gen Safari (iOS 6.1.6)
