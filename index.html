@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>UI</title>
+		<title>Heb12 Bible</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 		<style>
 		html, body {
@@ -11,12 +11,13 @@
 			font-family: sans-serif;
 		}
 
-		screen {
+		.screen {
 			width: 100%;
 			height: 100%;
 			display: none;
 		}
 
+		#nojs {display: block;}
 		#content {width: 100%;}
 
 		#content p {
@@ -26,7 +27,8 @@
 		}
 
 		#top {
-			box-shadow: 0px 5px 8px grey;
+			border-bottom: 2px solid black;
+			/* box-shadow: 0px 5px 8px grey; */
 			margin-bottom: 10px;
 			text-align: center;
 		}
@@ -46,74 +48,78 @@
 			cursor: pointer;
 		}
 
-		#top img, #top input {
+		img.button, #top input {
 			padding: 10px 10px;
 			display: inline-block;
 			height: 30px;
 		}
 
-		/* Responsiveness */
-		#content p:active, #top img:active {background: grey;}
-		@media only screen and (min-width: 600px) {
-			#content p:hover, #top img:hover, #top input:hover {background: lightgrey;}
-		}
+		#content p:hover, img.button:hover, #top input:hover {background: lightgrey;}
+		#content p:active, img.button:active {background: grey;}
 		</style>
 	</head>
 	<body>
-		<span id="nojs">For a JavaScript-less experience, visit ...</span>
+		<div class="screen" id="nojs">
+			<span>For a JavaScript-less experience, visit ...</span>
+		</div>
 
-		<screen>
+		<div class="screen" id="main">
 			<div id="top">
-				<img id="settings" src="https://fonts.gstatic.com/s/i/materialicons/settings/v6/24px.svg">
+				<img class="button" src="menu.png" onclick="showScreen('settings');">
 				<input id="verse" value="Hebrews 12" onkeypress="checkEnter(event, updateContent)">
 			</div>
 			<div id="content">
 
 			</div>
-		</screen>
+		</div>
+
+		<div class="screen" id="settings">
+			<img class="button" onclick="showScreen('main');" src="back.png">
+			<p>This is a settings page.</p>
+		</div>
 	</body>
 
-	<script src="fastclick.min.js"></script>
 	<script>
-	// FastClick (to be with browser only (can be removed))
-	window.addEventListener('load', function() {
-		new FastClick(document.body);
-	}, false);
-	</script>
-
-	<script>
-	// Current screen and default loading screen
-	var screen = 0;
-	var screens = document.getElementsByTagName("screen");
-	var content = document.getElementById("content");
-	var verse = document.getElementById("verse");
-	var requester = new XMLHttpRequest();
-
 	// Current UI bindings for web
 	var bindings = {
 		getVerses: function(reference, callback) {
+			var requester;
+			if (XMLHttpRequest) {
+				requester = new XMLHttpRequest;
+			} else {
+				requester = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+
 			requester.open("GET", "http://api.heb12.com/get/?reference=" + reference, true);
-			requester.onload = function() {
-				callback(JSON.parse(this.responseText));
+			requester.onreadystatechange = function() {
+				if (requester.readyState == 4 && requester.status == 200) {
+					callback(JSON.parse(requester.responseText));
+				}
 			};
 
-			requester.send(null);
+			requester.send();
 		}
+	}
+	</script>
+
+	<script>
+	window.onerror = function(a, b, c) {
+		alert(a + " Line: " + c);
 	}
 
 	window.onload = function() {
-		// Hide No js message
-		document.getElementById("nojs").style.display = "none";
-
-		// Default screen
-		screens[screen].style.display = "block";
-
-		// Initial content update
 		updateContent("Hebrews 12");
 	}
 
+	// Current and default screen
+	var screen = "nojs";
+	showScreen("main");
+
+	// Function to update page contents
 	function updateContent(reference) {
-		content.innerHTML = "";
+		while (content.firstChild) {
+			content.removeChild(content.firstChild);
+		}
 
 		bindings.getVerses(reference, function(data) {
 			var verses = data.data.text[0].verses;
@@ -127,6 +133,13 @@
 		});
 	}
 
+	function showScreen(next) {
+		document.getElementById(screen).style.display = "none";
+		document.getElementById(next).style.display = "block";
+		screen = next;
+	}
+
+	// Input handler
 	function checkEnter(env, code) {
 		if (env.keyCode == 13) {
 			updateContent(verse.value);
