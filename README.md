@@ -3,6 +3,7 @@ HTML/CSS/JS User Interface for Heb12 apps
 
 ## Requirements
 * Run on old android devices (>android 4.4)
+* Run on >= IE8
 * Consistent design
 * Clean
 * Minimal Javascript
