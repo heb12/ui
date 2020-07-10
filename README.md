@@ -1,5 +1,7 @@
 # Heb12 UI
-HTML/CSS/JS User Interface for Heb12 apps
+HTML/CSS/JS User Interface for Heb12 apps  
+Currently it will be done in 1 file for when it  
+will be moved to a custom webpack generator.
 
 ## Requirements
 * Run on old android devices (>android 4.4)
