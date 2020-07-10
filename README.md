@@ -19,5 +19,5 @@ will be moved to a custom webpack generator.
 - [] Animations?
 
 ## Currently Tested
-2010 iPod Touch 4th Gen Safari (iOS 6.1.6)
-Internet Explorer 8
+2010 iPod Touch 4th Gen Safari (iOS 6.1.6)  
+Internet Explorer 8  
