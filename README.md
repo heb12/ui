@@ -10,6 +10,12 @@ HTML/CSS/JS User Interface for Heb12 apps
 * No necessary large frameworks
 * Maintainable and extendable
 
+## Done
+- [*] Main page layout
+- [] Settings page
+- [] Themes (dark mode)
+- [] Animations?
+
 ## Currently Tested
 2010 iPod Touch 4th Gen Safari (iOS 6.1.6)
 Internet Explorer 8
