@@ -8,15 +8,17 @@ will be moved to a custom webpack generator.
 * Run on >= IE8
 * Consistent design
 * Clean
-* Minimal Javascript
+* Minimal/Optional Javascript
 * No necessary large frameworks
 * Maintainable and extendable
+* Mobile friendly
 
 ## Done
-- [*] Main page layout
+- [*] Main page basic layout
 - [] Settings page
 - [] Themes (dark mode)
 - [] Animations?
+- [] Dialogs, functionality
 
 ## Currently Tested
 2010 iPod Touch 4th Gen Safari (iOS 6.1.6)  
