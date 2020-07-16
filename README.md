@@ -14,11 +14,11 @@ will be moved to a custom webpack generator.
 * Mobile friendly
 
 ## Done
-- [*] Main page basic layout
-- [] Settings page
-- [] Themes (dark mode)
-- [] Animations?
-- [] Dialogs, functionality
+- [x] Main page basic layout
+- [ ] Settings page
+- [ ] Themes (dark mode)
+- [ ] Animations?
+- [ ] Dialogs, functionality
 
 ## Currently Tested
 2010 iPod Touch 4th Gen Safari (iOS 6.1.6)  
