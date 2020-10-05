@@ -65,7 +65,7 @@
 
 		<div class="screen" id="main">
 			<div id="top">
-				<img class="button" src="menu.png" onclick="showScreen('settings');">
+				<img class="button" src="MENU_ICON" onclick="showScreen('settings');">
 				<input id="verse" value="Hebrews 12" onkeypress="checkEnter(event, updateContent)">
 			</div>
 			<div id="content">
@@ -74,32 +74,14 @@
 		</div>
 
 		<div class="screen" id="settings">
-			<img class="button" onclick="showScreen('main');" src="back.png">
+			<img class="button" onclick="showScreen('main');" src="BACK_ICON">
 			<p>This is a settings page.</p>
 		</div>
 	</body>
 
 	<script>
 	// Current UI bindings for web
-	var bindings = {
-		getVerses: function(reference, callback) {
-			var requester;
-			if (XMLHttpRequest) {
-				requester = new XMLHttpRequest;
-			} else {
-				requester = new ActiveXObject("Microsoft.XMLHTTP");
-			}
-
-			requester.open("GET", "http://api.heb12.com/get/?reference=" + reference, true);
-			requester.onreadystatechange = function() {
-				if (requester.readyState == 4 && requester.status == 200) {
-					callback(JSON.parse(requester.responseText));
-				}
-			};
-
-			requester.send();
-		}
-	}
+	BINDING_SCRIPT
 	</script>
 
 	<script>
