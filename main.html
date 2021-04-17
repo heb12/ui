@@ -3,60 +3,7 @@
 	<head>
 		<title>Heb12 Bible</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-		<style>
-		html, body {
-			width: 100%;
-			height: 100%;
-			margin: 0;
-			font-family: sans-serif;
-		}
-
-		.screen {
-			width: 100%;
-			height: 100%;
-			display: none;
-		}
-
-		#nojs {display: block;}
-		#content {width: 100%;}
-
-		#content p {
-			margin: 0;
-			padding: 20px 20px;
-			cursor: pointer;
-		}
-
-		#top {
-			border-bottom: 2px solid black;
-			/* box-shadow: 0px 5px 8px grey; */
-			margin-bottom: 10px;
-			text-align: center;
-		}
-
-		#top input {
-			border: transparent;
-			outline: none;
-			font-size: 22px;
-			text-align: center;
-
-			width: 200px;
-		}
-
-		#top img {
-			vertical-align: top;
-			float: left;
-			cursor: pointer;
-		}
-
-		img.button, #top input {
-			padding: 10px 10px;
-			display: inline-block;
-			height: 30px;
-		}
-
-		#content p:hover, img.button:hover, #top input:hover {background: lightgrey;}
-		#content p:active, img.button:active {background: grey;}
-		</style>
+		<style>CSS_STYLES</style>
 	</head>
 	<body>
 		<div class="screen" id="nojs">
@@ -74,7 +21,7 @@
 		</div>
 
 		<div class="screen" id="settings">
-			<img class="button" onclick="showScreen('main');" src="BACK_ICON">
+			<img class="button" onclick="showScreen('main');" src="CLOSE_ICON">
 			<p>This is a settings page.</p>
 		</div>
 	</body>
@@ -82,9 +29,7 @@
 	<script>
 	// Current UI bindings for web
 	BINDING_SCRIPT
-	</script>
-
-	<script>
+	
 	window.onerror = function(a, b, c) {
 		alert("Error: " + a + " Line: " + c);
 	}

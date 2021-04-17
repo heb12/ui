@@ -1,19 +1,16 @@
-	var bindings = {
-		getVerses: function(reference, callback) {
-			var requester;
-			if (XMLHttpRequest) {
-				requester = new XMLHttpRequest;
-			} else {
-				requester = new ActiveXObject("Microsoft.XMLHTTP");
-			}
+var bindings = {
+	getVerses: function(reference, callback) {
+		callback(getVerses(reference).split("\n"));
+	},
 
-			requester.open("GET", "http://api.heb12.com/get/?reference=" + reference, true);
-			requester.onreadystatechange = function() {
-				if (requester.readyState == 4 && requester.status == 200) {
-					callback(JSON.parse(requester.responseText));
-				}
-			};
+	loadTranslation: function(name) {
+		loadTranslation(
+			"bibles/" + name + ".i",
+			"bibles/" + name + ".t"
+		);
+	},
 
-			requester.send();
-		}
+	loadConfiguration: function() {
+
 	}
+}

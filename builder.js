@@ -1,4 +1,12 @@
+/*
+UI processor
+TODO: Possible use something better than JS?
+
+
+*/
+
 var fs = require("fs");
+
 var options = {encoding: "utf8", flag: "r"};
 var contents = {
 	mobile: {
@@ -8,7 +16,9 @@ var contents = {
 	},
 
 	desktop: {
-
+		MENU_ICON: "assets/menu.png",
+		CLOSE_ICON: "assets/close.png",
+		BINDING_SCRIPT: fs.readFileSync("js/desktop.js", options)
 	},
 
 	oldBrowser: {
@@ -17,16 +27,24 @@ var contents = {
 
 	newBrowser: {
 
+	},
+
+	common: {
+		CSS_STYLES: fs.readFileSync("./main.css", options)
 	}
 }
 
-var option = "mobile";
-// This script builds the HTML file
+var option = process.argv[2];
 
-var parsed = fs.readFileSync("./reference.html", options)
-var keys = Object.keys(contents[option]);
-for (i in keys) {
-	parsed = parsed.replace(keys[i], contents[option][keys[i]]);
+var file = fs.readFileSync("./main.html", options);
+preprocess(contents[option]);
+preprocess(contents.common);
+
+fs.writeFileSync("./output.html", file);
+
+function preprocess(keys) {
+	var array = Object.keys(keys);
+	for (i in array) {
+		file = file.replace(array[i], keys[array[i]]);
+	}
 }
-
-fs.writeFileSync("./output.html", parsed);

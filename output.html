@@ -3,60 +3,59 @@
 	<head>
 		<title>Heb12 Bible</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-		<style>
-		html, body {
-			width: 100%;
-			height: 100%;
-			margin: 0;
-			font-family: sans-serif;
-		}
+		<style>html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	font-family: sans-serif;
+}
 
-		.screen {
-			width: 100%;
-			height: 100%;
-			display: none;
-		}
+.screen {
+	width: 100%;
+	height: 100%;
+	display: none;
+}
 
-		#nojs {display: block;}
-		#content {width: 100%;}
+#nojs {display: block;}
+#content {width: 100%;}
 
-		#content p {
-			margin: 0;
-			padding: 20px 20px;
-			cursor: pointer;
-		}
+#content p {
+	margin: 0;
+	padding: 20px 20px;
+	cursor: pointer;
+}
 
-		#top {
-			border-bottom: 2px solid black;
-			/* box-shadow: 0px 5px 8px grey; */
-			margin-bottom: 10px;
-			text-align: center;
-		}
+#top {
+	border-bottom: 2px solid black;
+	/* box-shadow: 0px 5px 8px grey; */
+	margin-bottom: 10px;
+	text-align: center;
+}
 
-		#top input {
-			border: transparent;
-			outline: none;
-			font-size: 22px;
-			text-align: center;
+#top input {
+	border: transparent;
+	outline: none;
+	font-size: 22px;
+	text-align: center;
 
-			width: 200px;
-		}
+	width: 200px;
+}
 
-		#top img {
-			vertical-align: top;
-			float: left;
-			cursor: pointer;
-		}
+#top img {
+	vertical-align: top;
+	float: left;
+	cursor: pointer;
+}
 
-		img.button, #top input {
-			padding: 10px 10px;
-			display: inline-block;
-			height: 30px;
-		}
+img.button, #top input {
+	padding: 10px 10px;
+	display: inline-block;
+	height: 30px;
+}
 
-		#content p:hover, img.button:hover, #top input:hover {background: lightgrey;}
-		#content p:active, img.button:active {background: grey;}
-		</style>
+#content p:hover, img.button:hover, #top input:hover {background: lightgrey;}
+#content p:active, img.button:active {background: grey;}
+</style>
 	</head>
 	<body>
 		<div class="screen" id="nojs">
@@ -65,7 +64,7 @@
 
 		<div class="screen" id="main">
 			<div id="top">
-				<img class="button" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAABYklEQVR4Ae3XIWzCQBiG4YmKikq8mg8+OHwqEMjJyfNBICqQ+CCRFQi8QiAQlRMIBKISOVHx7xUTyyWXL/l3NRtv8jhCvpTrJbw8+y9N0eCAM27fTmixwitGrUTAHQZIH3hDgazVuMKcOsyQpQaWwYB3uCvQwjLbwtUGNgrHk1rCRjRgBtJV6MUBNU1+tkMB2Rrq99/ChKDPIVeCqMQDFsMRRHpUiF6OLnlPiebid1+oUQj4WYAliRt9B3OM8o0BVkh2gflGOcYALZLdYZ5RrjHACclMi0eJMdrNMUi8TeKgC3ck691j/KPOSNY5xwQsnKMOSLZ3jRFXgtAgWe0bA/+oKZJV+NSPNh4jR3XyQDsPZIjH6FHq+3QTPMQhNAUDjrCEK0roKMBGVkOn37gsGu//sBMssxbuysxPaoMCvy6Ig670WCJrE2yje0p5YI0Ko1Whxh4d+uiiu2CHOUo8+9t9AUcCWfVf/Xv1AAAAAElFTkSuQmCC" onclick="showScreen('settings');">
+				<img class="button" src="assets/menu.png" onclick="showScreen('settings');">
 				<input id="verse" value="Hebrews 12" onkeypress="checkEnter(event, updateContent)">
 			</div>
 			<div id="content">
@@ -74,7 +73,7 @@
 		</div>
 
 		<div class="screen" id="settings">
-			<img class="button" onclick="showScreen('main');" src="BACK_ICON">
+			<img class="button" onclick="showScreen('main');" src="assets/close.png">
 			<p>This is a settings page.</p>
 		</div>
 	</body>
@@ -83,13 +82,13 @@
 	// Current UI bindings for web
 	var bindings = {
 	getVerses: function(reference, callback) {
-		callback(b.getVerses(reference).split("\n"));
+		callback(getVerses(reference).split("\n"));
 	},
 
 	loadTranslation: function(name) {
-		b.loadTranslation(
-			"/sdcard/heb12data/" + name + ".i",
-			"/sdcard/heb12data/" + name + ".t"
+		loadTranslation(
+			"bibles/" + name + ".i",
+			"bibles/" + name + ".t"
 		);
 	},
 
@@ -98,9 +97,7 @@
 	}
 }
 
-	</script>
-
-	<script>
+	
 	window.onerror = function(a, b, c) {
 		alert("Error: " + a + " Line: " + c);
 	}
