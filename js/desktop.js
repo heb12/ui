@@ -1,6 +1,18 @@
+var ret = 0;
+
 var bindings = {
 	getVerses: function(reference, callback) {
-		callback(getVerses(reference).split("\n"));
+		// I think there is a better way to do
+		// this with some new thing called "promises"
+		// But this stuff will do for now
+		getVerses(reference);
+		var wait = setInterval(function() {
+			if (ret != 0) {
+				clearInterval(wait);
+				callback(ret.split("\n"));
+				ret = 0;
+			}
+		}, 1);
 	},
 
 	loadTranslation: function(name) {

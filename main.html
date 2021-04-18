@@ -15,9 +15,7 @@
 				<img class="button" src="MENU_ICON" onclick="showScreen('settings');">
 				<input id="verse" value="Hebrews 12" onkeypress="checkEnter(event, updateContent)">
 			</div>
-			<div id="content">
-
-			</div>
+			<div id="content"></div>
 		</div>
 
 		<div class="screen" id="settings">
@@ -29,13 +27,9 @@
 	<script>
 	// Current UI bindings for web
 	BINDING_SCRIPT
-	
-	window.onerror = function(a, b, c) {
-		alert("Error: " + a + " Line: " + c);
-	}
 
 	window.onload = function() {
-		updateContent("Hebrews 12");
+		updateContent("Heb 12");
 	}
 
 	// Current and default screen
@@ -50,13 +44,18 @@
 		}
 
 		bindings.getVerses(reference, function(data) {
-			if (data.errors.length != 0) {
-				alert(data.errors)
-				return;
-			}
+			// Detect if using web API
+			var verses = data;
+			if (data.errors != undefined) {
+				if (data.errors.length != 0) {
+					alert(data.errors)
+					return;
+				}
 
-			var verses = data.data.text[0].verses;
-			for (var i = 0; i < verses.length; i++) {
+				var verses = data.data.text[0].verses;
+			}
+			
+			for (var i = 0; i < data.length; i++) {
 				var p = document.createElement("p");
 				p.innerHTML += "<b>" + (i + 1) + " </b>" + verses[i];
 				p.onclick = function() {};
@@ -73,8 +72,8 @@
 	}
 
 	// Input handler
-	function checkEnter(env, code) {
-		if (env.keyCode == 13) {
+	function checkEnter(event, code) {
+		if (event.keyCode == 13) {
 			updateContent(verse.value);
 		}
 	}

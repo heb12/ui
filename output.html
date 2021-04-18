@@ -67,9 +67,7 @@ img.button, #top input {
 				<img class="button" src="assets/menu.png" onclick="showScreen('settings');">
 				<input id="verse" value="Hebrews 12" onkeypress="checkEnter(event, updateContent)">
 			</div>
-			<div id="content">
-
-			</div>
+			<div id="content"></div>
 		</div>
 
 		<div class="screen" id="settings">
@@ -80,9 +78,22 @@ img.button, #top input {
 
 	<script>
 	// Current UI bindings for web
-	var bindings = {
+	var ret = 0;
+
+var bindings = {
 	getVerses: function(reference, callback) {
-		callback(getVerses(reference).split("\n"));
+		// I think there is a better way to do
+		// this with some new thing called "promises"
+		// But this stuff will do for now
+		getVerses(reference);
+		var wait = setInterval(function() {
+			if (ret != 0) {
+				clearInterval(wait);
+				alert(ret);
+				callback(ret.split("\n"));
+				ret = 0;
+			}
+		}, 1);
 	},
 
 	loadTranslation: function(name) {
@@ -97,13 +108,9 @@ img.button, #top input {
 	}
 }
 
-	
-	window.onerror = function(a, b, c) {
-		alert("Error: " + a + " Line: " + c);
-	}
 
 	window.onload = function() {
-		updateContent("Hebrews 12");
+		updateContent("Heb 12");
 	}
 
 	// Current and default screen
@@ -118,13 +125,18 @@ img.button, #top input {
 		}
 
 		bindings.getVerses(reference, function(data) {
-			if (data.errors.length != 0) {
-				alert(data.errors)
-				return;
-			}
+			// Detect if using web API
+			var verses = data;
+			if (data.errors != undefined) {
+				if (data.errors.length != 0) {
+					alert(data.errors)
+					return;
+				}
 
-			var verses = data.data.text[0].verses;
-			for (var i = 0; i < verses.length; i++) {
+				var verses = data.data.text[0].verses;
+			}
+			
+			for (var i = 0; i < data.length; i++) {
 				var p = document.createElement("p");
 				p.innerHTML += "<b>" + (i + 1) + " </b>" + verses[i];
 				p.onclick = function() {};
@@ -141,8 +153,8 @@ img.button, #top input {
 	}
 
 	// Input handler
-	function checkEnter(env, code) {
-		if (env.keyCode == 13) {
+	function checkEnter(event, code) {
+		if (event.keyCode == 13) {
 			updateContent(verse.value);
 		}
 	}
