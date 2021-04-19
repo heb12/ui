@@ -9,7 +9,7 @@ will be moved to a custom webpack generator.
 * Consistent design
 * Clean
 * Minimal/Optional Javascript
-* No necessary large frameworks
+* No unnecessary large frameworks
 * Maintainable and extendable
 * Mobile friendly
 
@@ -23,3 +23,6 @@ will be moved to a custom webpack generator.
 ## Currently Tested
 2010 iPod Touch 4th Gen Safari (iOS 6.1.6)  
 Internet Explorer 8  
+
+## TODO:
+- Maybe use Unix preprocessor instead of Javascript builder
