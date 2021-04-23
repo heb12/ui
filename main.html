@@ -48,14 +48,14 @@
 			var verses = data;
 			if (data.errors != undefined) {
 				if (data.errors.length != 0) {
-					alert(data.errors)
+					alert(data.errors);
 					return;
 				}
 
 				var verses = data.data.text[0].verses;
 			}
 			
-			for (var i = 0; i < data.length; i++) {
+			for (var i = 0; i < verses.length; i++) {
 				var p = document.createElement("p");
 				p.innerHTML += "<b>" + (i + 1) + " </b>" + verses[i];
 				p.onclick = function() {};
