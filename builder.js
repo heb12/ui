@@ -17,13 +17,13 @@ var contents = {
 
 	desktop: {
 		MENU_ICON: "assets/menu.png",
-		CLOSE_ICON: "assets/close.png",
+		CLOSE_ICON: "assets/back.png",
 		BINDING_SCRIPT: fs.readFileSync("js/desktop.js", options)
 	},
 
 	web: {
 		MENU_ICON: "assets/menu.png",
-		CLOSE_ICON: "assets/close.png",
+		CLOSE_ICON: "assets/back.png",
 		BINDING_SCRIPT: fs.readFileSync("js/web.js", options)
 	},
 
