@@ -1,7 +1,7 @@
 /*
 UI processor
 TODO: Possible use something better than JS?
-
+GNU M4? or some HTML preprocessor?
 
 */
 
@@ -21,12 +21,10 @@ var contents = {
 		BINDING_SCRIPT: fs.readFileSync("js/desktop.js", options)
 	},
 
-	oldBrowser: {
-
-	},
-
-	newBrowser: {
-
+	web: {
+		MENU_ICON: "assets/menu.png",
+		CLOSE_ICON: "assets/close.png",
+		BINDING_SCRIPT: fs.readFileSync("js/web.js", options)
 	},
 
 	common: {
