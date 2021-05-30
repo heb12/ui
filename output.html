@@ -71,35 +71,44 @@ img.button, #top input {
 		</div>
 
 		<div class="screen" id="settings">
-			<img class="button" onclick="showScreen('main');" src="assets/close.png">
+			<img class="button" onclick="showScreen('main');" src="assets/back.png">
 			<p>This is a settings page.</p>
 		</div>
 	</body>
 
 	<script>
 	// Current UI bindings for web
-	var bindings = {
+	var ret = 0;
+
+var bindings = {
 	getVerses: function(reference, callback) {
-		var requester;
-		if (XMLHttpRequest) {
-			requester = new XMLHttpRequest;
-		} else {
-			requester = new ActiveXObject("Microsoft.XMLHTTP");
-		}
-
-		requester.open("GET", "http://api.heb12.com/get/?reference=" + reference, true);
-		requester.onreadystatechange = function() {
-			if (requester.readyState == 4 && requester.status == 200) {
-				callback(JSON.parse(requester.responseText));
+		// I think there is a better way to do
+		// this with some new thing called "promises"
+		// But this stuff will do for now
+		getVerses(reference);
+		var wait = setInterval(function() {
+			if (ret != 0) {
+				clearInterval(wait);
+				callback(ret.split("\n"));
+				ret = 0;
 			}
-		};
+		}, 1);
+	},
 
-		requester.send();
+	loadTranslation: function(name) {
+		loadTranslation(
+			"kjv.txt"
+		);
+	},
+
+	loadConfiguration: function() {
+
 	}
 }
 
 
 	window.onload = function() {
+		bindings.loadTranslation("kjv.txt");
 		updateContent("Heb 12");
 	}
 
@@ -119,14 +128,14 @@ img.button, #top input {
 			var verses = data;
 			if (data.errors != undefined) {
 				if (data.errors.length != 0) {
-					alert(data.errors)
+					alert(data.errors);
 					return;
 				}
 
 				var verses = data.data.text[0].verses;
 			}
 			
-			for (var i = 0; i < data.length; i++) {
+			for (var i = 0; i < verses.length; i++) {
 				var p = document.createElement("p");
 				p.innerHTML += "<b>" + (i + 1) + " </b>" + verses[i];
 				p.onclick = function() {};

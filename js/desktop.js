@@ -17,8 +17,7 @@ var bindings = {
 
 	loadTranslation: function(name) {
 		loadTranslation(
-			"bibles/" + name + ".i",
-			"bibles/" + name + ".t"
+			"kjv.txt"
 		);
 	},
 
